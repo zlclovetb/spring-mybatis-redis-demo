@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <!-- 驱动包（数据库的jar包） -->
+  <classPathEntry
+    location="E:\.m2\repository\net\sourceforge\jtds\jtds\1.3.1\jtds-1.3.1.jar" />
+
+  <!-- targetRuntime开发环境使用的mybatis的版本 -->
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+    <!-- 分页插件 -->
+    <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+
+    <!-- 连接数据库的四要素 -->
+    <jdbcConnection driverClass="net.sourceforge.jtds.jdbc.Driver"
+      connectionURL="jdbc:jtds:sqlserver://192.168.20.57:1433/ParaHub_3.2.0_UAT"
+      userId="sa" password="P@ssw0rd">
+    </jdbcConnection>
+    <javaTypeResolver>
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <!-- 实体类 bean 带有get和set方法的bean -->
+    <javaModelGenerator targetPackage="com.paradm.mybatis.entity"
+      targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <!-- sql语句相关的xml或者注解的生成包路径 -->
+    <sqlMapGenerator targetPackage="mapper"
+      targetProject="src\main\resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <!-- 生成的接口所在的位置 注解 type="ANNOTATEDMAPPER" xml type="XMLMAPPER" -->
+    <javaClientGenerator type="XMLMAPPER"
+      targetPackage="com.paradm.mybatis.dao" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <!-- 数据库名 -->
+    <!-- <table tableName="DMS_DOCUMENT">
+    </table> -->
+
+    <table tableName="DMS_DOCUMENT"
+      enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="true"
+      selectByExampleQueryId="false">
+    </table>
+
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+  <context:component-scan base-package="com.paradm.mybatis"></context:component-scan>
+  
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+  	<property name="url" value="jdbc:jtds:sqlserver://192.168.20.57:1433/ParaHub_3.2.0_UAT" />
+	<property name="username" value="sa" />
+	<property name="password" value="P@ssw0rd" />
+  </bean>
+  
+  <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
+    <property name="typeAliasesPackage" value="com.paradm.mybatis.entity"></property>
+    <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+  </bean>
+  
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"></property>
+  </bean>
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+  <!-- <import resource="../redis/redis-cache.xml"/> -->
+  <import resource="../redis/spring-cache.xml"/>
+</beans>
